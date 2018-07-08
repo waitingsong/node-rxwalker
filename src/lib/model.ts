@@ -3,7 +3,7 @@ import { Observable } from 'rxjs'
 
 export type Filename = string
 export type Filepath = string
-export type DirFilterCbRet = Filename[] | Promise<Filename[]> | Observable<Filename>
+export type DirFilterCbRet = Filename[] | Promise<Filename[] | void> | Observable<Filename> | void
 
 export interface Options {
   maxDepth: number // if negative then infinite

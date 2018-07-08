@@ -9,6 +9,7 @@ import {
   DirFilterCb,
   DirFilterCbParams,
   EntryType,
+  Filename,
   Filepath,
   Options,
   WalkEvent,
@@ -129,7 +130,7 @@ function procDirfilterCb(cb: DirFilterCb, ps: DirFilterCbParams): Observable<Fil
   else if (filterRet instanceof Promise) {
     return ofrom(filterRet).pipe(
       filter(files => files && Array.isArray(files) ? true : false),
-      mergeMap(files => ofrom(files)),
+      mergeMap((files: Filename[]) => ofrom(files)),
     )
   }
 
