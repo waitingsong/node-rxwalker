@@ -24,11 +24,14 @@ describe(filename, () => {
 
     walk(path).subscribe(
       data => {
-        if (data.type === EntryType.dir) {
-          dirCount += 1
-        }
-        else if (data.type === EntryType.file) {
-          fileCount += 1
+        switch (data.type) {
+          case EntryType.dir:
+            dirCount += 1
+            break
+
+          case EntryType.file:
+            fileCount += 1
+            break
         }
 
         if (data.type !== EntryType.notExist) {
@@ -56,11 +59,14 @@ describe(filename, () => {
 
     walk(path).subscribe(
       data => {
-        if (data.type === EntryType.dir) {
-          dirCount += 1
-        }
-        else if (data.type === EntryType.file) {
-          fileCount += 1
+        switch (data.type) {
+          case EntryType.dir:
+            dirCount += 1
+            break
+
+          case EntryType.file:
+            fileCount += 1
+            break
         }
 
         if (data.type !== EntryType.notExist) {
@@ -88,11 +94,14 @@ describe(filename, () => {
 
     walk(path).subscribe(
       data => {
-        if (data.type === EntryType.dir) {
-          dirCount += 1
-        }
-        else if (data.type === EntryType.file) {
-          fileCount += 1
+        switch (data.type) {
+          case EntryType.dir:
+            dirCount += 1
+            break
+
+          case EntryType.file:
+            fileCount += 1
+            break
         }
 
         if (data.type !== EntryType.notExist) {
@@ -122,11 +131,14 @@ describe(filename, () => {
 
     walk(path, { maxDepth }).subscribe(
       data => {
-        if (data.type === EntryType.dir) {
-          dirCount += 1
-        }
-        else if (data.type === EntryType.file) {
-          fileCount += 1
+        switch (data.type) {
+          case EntryType.dir:
+            dirCount += 1
+            break
+
+          case EntryType.file:
+            fileCount += 1
+            break
         }
 
         if (data.type !== EntryType.notExist) {
@@ -155,11 +167,14 @@ describe(filename, () => {
 
     walk(path, { maxDepth }).subscribe(
       data => {
-        if (data.type === EntryType.dir) {
-          dirCount += 1
-        }
-        else if (data.type === EntryType.file) {
-          fileCount += 1
+        switch (data.type) {
+          case EntryType.dir:
+            dirCount += 1
+            break
+
+          case EntryType.file:
+            fileCount += 1
+            break
         }
 
         if (data.type !== EntryType.notExist) {
@@ -191,11 +206,14 @@ describe(filename, () => {
 
     walk(path, { dirFilterCb }).subscribe(
       data => {
-        if (data.type === EntryType.dir) {
-          dirCount += 1
-        }
-        else if (data.type === EntryType.file) {
-          fileCount += 1
+        switch (data.type) {
+          case EntryType.dir:
+            dirCount += 1
+            break
+
+          case EntryType.file:
+            fileCount += 1
+            break
         }
 
         if (data.type !== EntryType.notExist) {
@@ -231,11 +249,14 @@ describe(filename, () => {
 
     walk(path, { dirFilterCb }).subscribe(
       data => {
-        if (data.type === EntryType.dir) {
-          dirCount += 1
-        }
-        else if (data.type === EntryType.file) {
-          fileCount += 1
+        switch (data.type) {
+          case EntryType.dir:
+            dirCount += 1
+            break
+
+          case EntryType.file:
+            fileCount += 1
+            break
         }
 
         if (data.type !== EntryType.notExist) {
@@ -279,11 +300,14 @@ describe(filename, () => {
 
     walk(path, { dirFilterCb }).subscribe(
       data => {
-        if (data.type === EntryType.dir) {
-          dirCount += 1
-        }
-        else if (data.type === EntryType.file) {
-          fileCount += 1
+        switch (data.type) {
+          case EntryType.dir:
+            dirCount += 1
+            break
+
+          case EntryType.file:
+            fileCount += 1
+            break
         }
 
         if (data.type !== EntryType.notExist) {
@@ -318,11 +342,14 @@ describe(filename, () => {
 
     walk(path, { dirFilterCb }).subscribe(
       data => {
-        if (data.type === EntryType.dir) {
-          dirCount += 1
-        }
-        else if (data.type === EntryType.file) {
-          fileCount += 1
+        switch (data.type) {
+          case EntryType.dir:
+            dirCount += 1
+            break
+
+          case EntryType.file:
+            fileCount += 1
+            break
         }
 
         if (data.type !== EntryType.notExist) {
