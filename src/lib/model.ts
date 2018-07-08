@@ -27,6 +27,7 @@ export interface WalkEvent {
 
 export const enum EntryType {
   unknown = 'unknown',
+  notExist = 'notExist',
   file = 'file',
   dir = 'directory',
   block = 'blockDevice',

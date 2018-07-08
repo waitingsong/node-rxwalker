@@ -39,9 +39,11 @@ function entryProxy(path: string, options: Options, curDepth: number): Observabl
   return ofrom(lstatAsync(path)).pipe(
     mergeMap((stats: Stats) => _entryProxy(path, stats, options, curDepth)),
     catchError(err => {
+      const entryType = err && err.code === 'ENOENT' ? EntryType.notExist : EntryType.unknown
+
       return of(<WalkEvent> {
         ...initialWalkEvent,
-        type: EntryType.unknown,
+        type: entryType,
         path: err.path,
         error: err,
       })
