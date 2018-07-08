@@ -55,6 +55,7 @@ walk('<path>', { maxDepth }).subscribe(
       entryCount += 1
     }
   },
+  err => console.error(err),
   () => {
     console.info(`count result dirs: ${dirCount}, files: ${fileCount}, entries: ${entryCount}`)
   },
@@ -96,6 +97,7 @@ walk('<path>', { dirFilterCb }).subscribe(
       entryCount += 1
     }
   },
+  err => console.error(err),
   () => {
     console.info(`count result dirs: ${dirCount}, files: ${fileCount}, entries: ${entryCount}`)
   },
