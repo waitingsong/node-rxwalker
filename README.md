@@ -36,16 +36,20 @@ let entryCount = 0
 
 walk('<path>', { maxDepth }).subscribe(
   data => {
-    if (data.type === EntryType.dir) {
-      console.info('got a dir', data)
-      dirCount += 1
-    }
-    else if (data.type === EntryType.file) {
-      console.info('got a file', data)
-      fileCount += 1
-    }
-    else if (data.type === EntryType.unknown) {
-      console.info('got a unknow entry', data)
+    switch (data.type) {
+      case EntryType.dir:
+        console.info('got a dir', data)
+        dirCount += 1
+        break
+
+      case EntryType.file:
+        console.info('got a file', data)
+        fileCount += 1
+        break
+
+      case EntryType.unknown:
+        console.info('got a unknow entry', data)
+        break
     }
 
     if (data.type === EntryType.notExist) {
@@ -78,16 +82,20 @@ const dirFilterCb = ({ files }: DirFilterCbParams): DirFilterCbRet => {
 
 walk('<path>', { dirFilterCb }).subscribe(
   data => {
-    if (data.type === EntryType.dir) {
-      console.info('got a dir', data)
-      dirCount += 1
-    }
-    else if (data.type === EntryType.file) {
-      console.info('got a file', data)
-      fileCount += 1
-    }
-    else if (data.type === EntryType.unknown) {
-      console.info('got a unknow entry', data)
+    switch (data.type) {
+      case EntryType.dir:
+        console.info('got a dir', data)
+        dirCount += 1
+        break
+
+      case EntryType.file:
+        console.info('got a file', data)
+        fileCount += 1
+        break
+
+      case EntryType.unknown:
+        console.info('got a unknow entry', data)
+        break
     }
 
     if (data.type === EntryType.notExist) {
