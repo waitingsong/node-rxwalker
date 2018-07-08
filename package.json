@@ -1,24 +1,30 @@
 {
-  "name": "npm-base",
+  "name": "rxwalker",
   "author": "waiting",
   "version": "0.0.1",
-  "description": "npm boilerplate",
-  "keywords": [],
+  "description": "A simple directory tree walker by rxjs",
+  "keywords": [
+    "fs",
+    "filesystem",
+    "readdir",
+    "rxjs",
+    "utils"
+  ],
   "engines": {
     "node": ">=8.10.0"
   },
   "browser": "",
-  "es2015": "./dist/index.esm.js",
+  "es2015": "./dist/rxwalker.esm.js",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bugs": {
-    "url": "https://github.com/waitingsong/npm-base/issues"
+    "url": "https://github.com/waitingsong/node-rxwalker/issues"
   },
-  "homepage": "https://github.com/waitingsong/npm-base#readme",
+  "homepage": "https://github.com/waitingsong/node-rxwalker#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/waitingsong/npm-base.git"
+    "url": "git+https://github.com/waitingsong/node-rxwalker.git"
   },
   "license": "MIT",
   "nyc": {
