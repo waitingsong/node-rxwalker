@@ -112,11 +112,11 @@ function handleError(err: any): Observable<WalkEvent> {
 
   if (err.code) {
     switch (err.code) {
-      case 'ENOENT':
+      case EntryType.notExist:
         entryType = EntryType.notExist
         break
 
-      case 'EPERM':
+      case EntryType.noAcessPermission:
         entryType = EntryType.noAcessPermission
         break
     }
