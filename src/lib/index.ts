@@ -95,28 +95,6 @@ function _entryProxy(path: string, stats: Stats, options: Options, curDepth: num
 }
 
 
-function walkDir({ path, options, curDepth }: WalkFnParams): Observable<WalkEvent> {
-  const useFilter = typeof options.dirFilterCb === 'function' ? true : false
-  const ret$ = ofrom(readDirAsync(path)).pipe(
-    mergeMap(files => {
-      if (useFilter && options.dirFilterCb) {
-        return procDirfilterCb(options.dirFilterCb, {
-          parentPath: path,
-          files,
-          curDepth,
-        })
-      }
-      return ofrom(files)
-    }),
-    filter(file => file && typeof file === 'string' ? true : false),
-    mergeMap(file => {
-      return entryProxy(join(path, file), options, curDepth)
-    }),
-  )
-  return ret$
-}
-
-
 function procDirfilterCb(cb: DirFilterCb, ps: DirFilterCbParams): Observable<Filepath> {
   const filterRet = cb(ps)
 
@@ -138,6 +116,29 @@ function procDirfilterCb(cb: DirFilterCb, ps: DirFilterCbParams): Observable<Fil
 
   return empty()
 }
+
+
+function walkDir({ path, options, curDepth }: WalkFnParams): Observable<WalkEvent> {
+  const useFilter = typeof options.dirFilterCb === 'function' ? true : false
+  const ret$ = ofrom(readDirAsync(path)).pipe(
+    mergeMap(files => {
+      if (useFilter && options.dirFilterCb) {
+        return procDirfilterCb(options.dirFilterCb, {
+          parentPath: path,
+          files,
+          curDepth,
+        })
+      }
+      return ofrom(files)
+    }),
+    filter(file => file && typeof file === 'string' ? true : false),
+    mergeMap(file => {
+      return entryProxy(join(path, file), options, curDepth)
+    }),
+  )
+  return ret$
+}
+
 
 
 function walkLink({ path, options, curDepth }: WalkFnParams): Observable<WalkEvent> {
