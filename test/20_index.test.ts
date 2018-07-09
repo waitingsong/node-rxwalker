@@ -27,15 +27,17 @@ describe(filename, () => {
         switch (data.type) {
           case EntryType.dir:
             dirCount += 1
+            entryCount += 1
             break
 
           case EntryType.file:
             fileCount += 1
+            entryCount += 1
             break
-        }
 
-        if (data.type !== EntryType.notExist) {
-          entryCount += 1
+          case EntryType.noAcessPermission:
+            entryCount += 1
+            break
         }
       },
       err => {
@@ -62,15 +64,17 @@ describe(filename, () => {
         switch (data.type) {
           case EntryType.dir:
             dirCount += 1
+            entryCount += 1
             break
 
           case EntryType.file:
             fileCount += 1
+            entryCount += 1
             break
-        }
 
-        if (data.type !== EntryType.notExist) {
-          entryCount += 1
+          case EntryType.noAcessPermission:
+            entryCount += 1
+            break
         }
       },
       err => {
@@ -97,15 +101,17 @@ describe(filename, () => {
         switch (data.type) {
           case EntryType.dir:
             dirCount += 1
+            entryCount += 1
             break
 
           case EntryType.file:
             fileCount += 1
+            entryCount += 1
             break
-        }
 
-        if (data.type !== EntryType.notExist) {
-          entryCount += 1
+          case EntryType.noAcessPermission:
+            entryCount += 1
+            break
         }
       },
       err => {
@@ -134,15 +140,17 @@ describe(filename, () => {
         switch (data.type) {
           case EntryType.dir:
             dirCount += 1
+            entryCount += 1
             break
 
           case EntryType.file:
             fileCount += 1
+            entryCount += 1
             break
-        }
 
-        if (data.type !== EntryType.notExist) {
-          entryCount += 1
+          case EntryType.noAcessPermission:
+            entryCount += 1
+            break
         }
       },
       err => {
@@ -170,16 +178,19 @@ describe(filename, () => {
         switch (data.type) {
           case EntryType.dir:
             dirCount += 1
+            entryCount += 1
             break
 
           case EntryType.file:
             fileCount += 1
+            entryCount += 1
+            break
+
+          case EntryType.noAcessPermission:
+            entryCount += 1
             break
         }
 
-        if (data.type !== EntryType.notExist) {
-          entryCount += 1
-        }
       },
       err => {
         assert(false, err)
@@ -209,15 +220,17 @@ describe(filename, () => {
         switch (data.type) {
           case EntryType.dir:
             dirCount += 1
+            entryCount += 1
             break
 
           case EntryType.file:
             fileCount += 1
+            entryCount += 1
             break
-        }
 
-        if (data.type !== EntryType.notExist) {
-          entryCount += 1
+          case EntryType.noAcessPermission:
+            entryCount += 1
+            break
         }
       },
       err => {
@@ -252,15 +265,17 @@ describe(filename, () => {
         switch (data.type) {
           case EntryType.dir:
             dirCount += 1
+            entryCount += 1
             break
 
           case EntryType.file:
             fileCount += 1
+            entryCount += 1
             break
-        }
 
-        if (data.type !== EntryType.notExist) {
-          entryCount += 1
+          case EntryType.noAcessPermission:
+            entryCount += 1
+            break
         }
       },
       err => {
@@ -303,15 +318,17 @@ describe(filename, () => {
         switch (data.type) {
           case EntryType.dir:
             dirCount += 1
+            entryCount += 1
             break
 
           case EntryType.file:
             fileCount += 1
+            entryCount += 1
             break
-        }
 
-        if (data.type !== EntryType.notExist) {
-          entryCount += 1
+          case EntryType.noAcessPermission:
+            entryCount += 1
+            break
         }
       },
       err => {
@@ -345,15 +362,17 @@ describe(filename, () => {
         switch (data.type) {
           case EntryType.dir:
             dirCount += 1
+            entryCount += 1
             break
 
           case EntryType.file:
             fileCount += 1
+            entryCount += 1
             break
-        }
 
-        if (data.type !== EntryType.notExist) {
-          entryCount += 1
+          case EntryType.noAcessPermission:
+            entryCount += 1
+            break
         }
       },
       err => {
