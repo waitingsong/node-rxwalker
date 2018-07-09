@@ -14,12 +14,16 @@ npm install --save rxwalker
 ```
 
 ## Usage
+```js
+const walk = require('rxwalker').default
+
+walk('<path>').subscribe(
+  data => console.info(data),
+)
+```
+
 ```ts
 import walk from 'rxwalker'
-
-let dirCount = 0
-let fileCount = 0
-let entryCount = 0
 
 walk('<path>').subscribe(
   data => console.info(data),
@@ -121,6 +125,22 @@ walk('<path>', { dirFilterCb }).subscribe(
 )
 ```
 
+```ts
+// stop running walker conditionally
+import walk from 'rxwalker'
+
+const sub = walk('<path>').subscribe(
+  data => {
+    if (data.path.includes('a')) {
+      sub.unsubscribe()
+      console.log('stopped with:', data)
+    }
+    else {
+      console.log(data)
+    }
+  }
+)
+```
 
 ## Demo
 - [Demos from test](https://github.com/waitingsong/node-rxwalker/blob/master/test/20_index.test.ts)
