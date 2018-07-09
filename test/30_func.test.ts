@@ -79,4 +79,25 @@ describe(filename, () => {
     )
   })
 
+  it('Should handleError() works with unknown error.code', resolve => {
+    const fnName = 'handleError'
+    const fn = <(err: NodeJS.ErrnoException) => Observable<WalkEvent>> mods.__get__(fnName)
+
+    if (typeof fn !== 'function') {
+      return assert(false, `${fnName} is not a function`)
+    }
+    const err: NodeJS.ErrnoException = new Error()
+
+    err.code = 'whaterror'
+    err.path = Math.random() + ''
+
+    fn(err).subscribe(
+      data => {
+        assert(data.type === EntryType.unknown)
+        assert(data.path === err.path)
+        resolve()
+      },
+    )
+  })
+
 })
