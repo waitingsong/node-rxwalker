@@ -38,17 +38,7 @@ export function walk(
 function entryProxy(path: string, options: Options, curDepth: number): Observable<WalkEvent> {
   return ofrom(lstatAsync(path)).pipe(
     mergeMap((stats: Stats) => _entryProxy(path, stats, options, curDepth)),
-    catchError(err => {
-      const entryType = err && err.code === 'ENOENT' ? EntryType.notExist : EntryType.unknown
-
-      return of(<WalkEvent> {
-        ...initialWalkEvent,
-        type: entryType,
-        path: err.path,
-        error: err,
-      })
-
-    }),
+    catchError(handleError),
 
   )
 }
@@ -115,6 +105,29 @@ function procDirfilterCb(cb: DirFilterCb, ps: DirFilterCbParams): Observable<Fil
   }
 
   return empty()
+}
+
+function handleError(err: any): Observable<WalkEvent> {
+  let entryType = EntryType.unknown
+
+  if (err.code) {
+    switch (err.code) {
+      case 'ENOENT':
+        entryType = EntryType.notExist
+        break
+
+      case 'EPERM':
+        entryType = EntryType.noAcessPermission
+        break
+    }
+  }
+
+  return of(<WalkEvent> {
+    ...initialWalkEvent,
+    type: entryType,
+    path: err.path,
+    error: err,
+  })
 }
 
 
