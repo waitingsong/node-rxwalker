@@ -15,6 +15,7 @@ npm install --save rxwalker
 
 ## 使用
 ```js
+// js
 const walk = require('rxwalker').default
 
 walk('<path>').subscribe(
@@ -23,6 +24,7 @@ walk('<path>').subscribe(
 ```
 
 ```ts
+// es6 or typescript
 import walk from 'rxwalker'
 
 walk('<path>').subscribe(
@@ -31,6 +33,7 @@ walk('<path>').subscribe(
 ```
 
 ```ts
+// typescript
 import { walk, EntryType } from 'rxwalker'
 
 const maxDepth = 7 // <--- 递归最大深度
@@ -76,6 +79,7 @@ walk('<path>', { maxDepth }).subscribe(
 
 
 ```ts
+// typescript
 import { walk, DirFilterCbParams, DirFilterCbRet, EntryType } from 'rxwalker'
 
 let dirCount = 0
@@ -126,6 +130,7 @@ walk('<path>', { dirFilterCb }).subscribe(
 ```
 
 ```ts
+// es6 or typescript
 // 根据条件终止搜索
 import walk from 'rxwalker'
 
