@@ -9,6 +9,7 @@
     "readdir",
     "rxjs",
     "utils",
+    "walkdir",
     "walker"
   ],
   "engines": {
