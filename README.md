@@ -40,23 +40,27 @@ walk('<path>', { maxDepth }).subscribe(
       case EntryType.dir:
         console.info('got a dir', data)
         dirCount += 1
+        entryCount += 1
         break
 
       case EntryType.file:
         console.info('got a file', data)
         fileCount += 1
+        entryCount += 1
+        break
+
+      case EntryType.noAcessPermission:
+        console.info('got a entry without access permission', data)
+        entryCount += 1
         break
 
       case EntryType.unknown:
         console.info('got a unknow entry', data)
         break
-    }
 
-    if (data.type === EntryType.notExist) {
-      console.error('entry not exists:', data.path)
-    }
-    else {
-      entryCount += 1
+      case EntryType.notExist:
+        console.error('entry not exists:', data.path)
+        break
     }
   },
   err => console.error(err),
@@ -86,24 +90,29 @@ walk('<path>', { dirFilterCb }).subscribe(
       case EntryType.dir:
         console.info('got a dir', data)
         dirCount += 1
+        entryCount += 1
         break
 
       case EntryType.file:
         console.info('got a file', data)
         fileCount += 1
+        entryCount += 1
+        break
+
+      case EntryType.noAcessPermission:
+        console.info('got a entry without access permission', data)
+        entryCount += 1
         break
 
       case EntryType.unknown:
         console.info('got a unknow entry', data)
         break
+
+      case EntryType.notExist:
+        console.error('entry not exists:', data.path)
+        break
     }
 
-    if (data.type === EntryType.notExist) {
-      console.error('entry not exists:', data.path)
-    }
-    else {
-      entryCount += 1
-    }
   },
   err => console.error(err),
   () => {
