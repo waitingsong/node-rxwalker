@@ -4,10 +4,9 @@ import * as assert from 'power-assert'
 import rewire = require('rewire')
 import { Observable } from 'rxjs'
 
-import { walk, DirFilterCbParams, DirFilterCbRet, EntryType, WalkEvent } from '../src/index'
+import { EntryType, WalkEvent } from '../src/index'
 import {
   basename,
-  join,
 } from '../src/shared/index'
 
 const filename = basename(__filename)
