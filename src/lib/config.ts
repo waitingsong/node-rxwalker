@@ -17,8 +17,10 @@ export const initialOptions: Options = {
 }
 
 export const initialWalkEvent: WalkEvent = {
+  depth: 0,
   type: EntryType.unknown,
   path: '',
+  parentPath: '',
 }
 
 function initialDirFilterFn(ps: DirFilterCbParams): DirFilterCbRet {

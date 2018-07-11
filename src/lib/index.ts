@@ -30,11 +30,17 @@ export function walk(
     opts.maxDepth = Number.POSITIVE_INFINITY
   }
 
-  return entryProxy(path, opts, 0)
+  return entryProxy(path, opts, 0, '')
 }
 
 
-function entryProxy(path: string, options: Options, curDepth: number): Observable<WalkEvent> {
+function entryProxy(
+  path: string,
+  options: Options,
+  curDepth: number,
+  parentPath: Filepath,
+): Observable<WalkEvent> {
+
   const stats$ = <Observable<Stats>> Observable.create((obv: Observer<Stats>) => {
     lstat(path, (err, stats) => {
       if (err) {
@@ -46,17 +52,26 @@ function entryProxy(path: string, options: Options, curDepth: number): Observabl
   })
 
   return stats$.pipe(
-    mergeMap((stats: Stats) => _entryProxy(path, stats, options, curDepth)),
-    catchError(handleError),
+    mergeMap((stats: Stats) => _entryProxy(path, stats, options, curDepth, parentPath)),
+    catchError(err => handleError(err, curDepth)),
   )
 }
 
-function _entryProxy(path: string, stats: Stats, options: Options, curDepth: number): Observable<WalkEvent> {
+function _entryProxy(
+  path: string,
+  stats: Stats,
+  options: Options,
+  curDepth: number,
+  parentPath: Filepath,
+): Observable<WalkEvent> {
+
   if (stats.isFile()) {
     return of(<WalkEvent> {
       ...initialWalkEvent,
+      depth: curDepth,
       type: EntryType.file,
       path,
+      parentPath,
       stats,
     })
   }
@@ -64,8 +79,10 @@ function _entryProxy(path: string, stats: Stats, options: Options, curDepth: num
   if (stats.isDirectory()) {
     const ret: WalkEvent = {
       ...initialWalkEvent,
+      depth: curDepth,
       type: EntryType.dir,
       path,
+      parentPath,
       stats,
     }
 
@@ -79,15 +96,17 @@ function _entryProxy(path: string, stats: Stats, options: Options, curDepth: num
   if (stats.isSymbolicLink()) {
     const ret: WalkEvent = {
       ...initialWalkEvent,
+      depth: curDepth,
       type: EntryType.link,
       path,
+      parentPath,
       stats,
     }
 
     return merge(
       of(ret),
       (options.followLink && curDepth < options.maxDepth
-        ? walkLink({ path, options, curDepth: curDepth + 1 })
+        ? walkLink({ path, options, curDepth })
         : empty()
       ),
     )
@@ -119,7 +138,7 @@ function procDirfilterCb(cb: DirFilterCb, ps: DirFilterCbParams): Observable<Fil
   return empty()
 }
 
-function handleError(err: any): Observable<WalkEvent> {
+function handleError(err: any, curDepth: number): Observable<WalkEvent> {
   let entryType = EntryType.unknown
 
   if (err.code) {
@@ -138,6 +157,8 @@ function handleError(err: any): Observable<WalkEvent> {
     ...initialWalkEvent,
     type: entryType,
     path: err.path,
+    parentPath: '',
+    depth: curDepth,
     error: err,
   })
 }
@@ -167,7 +188,7 @@ function walkDir({ path, options, curDepth }: WalkFnParams): Observable<WalkEven
     }),
     filter(file => file && typeof file === 'string' ? true : false),
     mergeMap((file: string) => {
-      return entryProxy(path + '/' + file, options, curDepth)
+      return entryProxy(path + '/' + file, options, curDepth, path)
     }),
   )
 
@@ -177,6 +198,6 @@ function walkDir({ path, options, curDepth }: WalkFnParams): Observable<WalkEven
 
 function walkLink({ path, options, curDepth }: WalkFnParams): Observable<WalkEvent> {
   return ofrom(readLinkAsync(path)).pipe(
-    mergeMap(file => entryProxy(file, options, curDepth)),
+    mergeMap(file => entryProxy(file, options, curDepth, path)),
   )
 }

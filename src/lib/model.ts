@@ -26,8 +26,11 @@ export interface DirFilterCbParams {
 
 
 export interface WalkEvent {
+  depth: number
   type: EntryType
   path: Filepath
+  // may different from dirname(path) cause of symbolicLink
+  parentPath: Filepath
   stats?: Stats
   error?: Error
 }
