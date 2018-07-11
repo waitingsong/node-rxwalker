@@ -1,8 +1,8 @@
-import { lstat, readlink, Stats } from 'fs'
-import { empty, from as ofrom, merge, of, Observable } from 'rxjs'
+import { lstat, readdir, readlink, Stats } from 'fs'
+import { empty, from as ofrom, merge, of, Observable, Observer } from 'rxjs'
 import { catchError, filter, mergeMap } from 'rxjs/operators'
 
-import { join, promisify, readDirAsync } from '../shared/index'
+import { promisify } from '../shared/index'
 
 import { initialOptions, initialWalkEvent } from './config'
 import {
@@ -17,7 +17,6 @@ import {
 } from './model'
 
 
-const lstatAsync = promisify(lstat)
 const readLinkAsync = promisify(readlink)
 
 
@@ -36,10 +35,19 @@ export function walk(
 
 
 function entryProxy(path: string, options: Options, curDepth: number): Observable<WalkEvent> {
-  return ofrom(lstatAsync(path)).pipe(
+  const stats$ = <Observable<Stats>> Observable.create((obv: Observer<Stats>) => {
+    lstat(path, (err, stats) => {
+      if (err) {
+        return obv.error(err)
+      }
+      obv.next(stats)
+      obv.complete()
+    })
+  })
+
+  return stats$.pipe(
     mergeMap((stats: Stats) => _entryProxy(path, stats, options, curDepth)),
     catchError(handleError),
-
   )
 }
 
@@ -137,7 +145,16 @@ function handleError(err: any): Observable<WalkEvent> {
 
 function walkDir({ path, options, curDepth }: WalkFnParams): Observable<WalkEvent> {
   const useFilter = typeof options.dirFilterCb === 'function' ? true : false
-  const ret$ = ofrom(readDirAsync(path)).pipe(
+  const files$ = <Observable<Filename[]>> Observable.create((obv: Observer<Filename[]>) => {
+    readdir(path, (err, files) => {
+      if (err) {
+        return obv.error(err)
+      }
+      obv.next(files)
+      obv.complete()
+    })
+  })
+  const ret$ = files$.pipe(
     mergeMap(files => {
       if (useFilter && options.dirFilterCb) {
         return procDirfilterCb(options.dirFilterCb, {
@@ -149,15 +166,16 @@ function walkDir({ path, options, curDepth }: WalkFnParams): Observable<WalkEven
       return ofrom(files)
     }),
     filter(file => file && typeof file === 'string' ? true : false),
-    mergeMap(file => {
-      return entryProxy(join(path, file), options, curDepth)
+    mergeMap((file: string) => {
+      return entryProxy(path + '/' + file, options, curDepth)
     }),
   )
+
   return ret$
 }
 
 
-export function walkLink({ path, options, curDepth }: WalkFnParams): Observable<WalkEvent> {
+function walkLink({ path, options, curDepth }: WalkFnParams): Observable<WalkEvent> {
   return ofrom(readLinkAsync(path)).pipe(
     mergeMap(file => entryProxy(file, options, curDepth)),
   )
