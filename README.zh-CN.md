@@ -39,6 +39,7 @@ import { walk, EntryType } from 'rxwalker'
 const maxDepth = 7 // <--- 递归最大深度
 let dirCount = 0
 let fileCount = 0
+let linkCount = 0
 let entryCount = 0
 
 walk('<path>', { maxDepth }).subscribe(
@@ -54,6 +55,12 @@ walk('<path>', { maxDepth }).subscribe(
         console.info('got a file', data)
         fileCount += 1
         entryCount += 1
+        break
+
+      case EntryType.link:
+        console.info('got a symbolicLink', data)
+        linkCount += 1
+        // entryCount += 1
         break
 
       case EntryType.noAcessPermission:
@@ -72,7 +79,7 @@ walk('<path>', { maxDepth }).subscribe(
   },
   err => console.error(err),
   () => {
-    console.info(`count result dirs: ${dirCount}, files: ${fileCount}, entries: ${entryCount}`)
+    console.info(`count result dirs: ${dirCount}, files: ${fileCount}, links: ${linkCount}, entries: ${entryCount} `)
   },
 )
 ```
@@ -84,6 +91,7 @@ import { walk, DirFilterCbParams, DirFilterCbRet, EntryType } from 'rxwalker'
 
 let dirCount = 0
 let fileCount = 0
+let linkCount = 0
 let entryCount = 0
 
 const dirFilterCb = ({ files }: DirFilterCbParams): DirFilterCbRet => {
@@ -107,6 +115,12 @@ walk('<path>', { dirFilterCb }).subscribe(
         entryCount += 1
         break
 
+      case EntryType.link:
+        console.info('got a symbolicLink', data)
+        linkCount += 1
+        // entryCount += 1
+        break
+
       case EntryType.noAcessPermission:
         console.info('got a entry without access permission', data)
         entryCount += 1
@@ -124,7 +138,7 @@ walk('<path>', { dirFilterCb }).subscribe(
   },
   err => console.error(err),
   () => {
-    console.info(`count result dirs: ${dirCount}, files: ${fileCount}, entries: ${entryCount}`)
+    console.info(`count result dirs: ${dirCount}, files: ${fileCount}, links: ${linkCount}, entries: ${entryCount} `)
   },
 )
 ```
@@ -144,6 +158,16 @@ const sub = walk('<path>').subscribe(
       console.log(data)
     }
   }
+)
+```
+
+```ts
+// es6 or typescript
+// Do not walk symbolicLink
+import walk from 'rxwalker'
+
+walk('<path>', { followLink: false }).subscribe(
+  data => console.log(data),
 )
 ```
 

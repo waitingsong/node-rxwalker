@@ -20,6 +20,7 @@ describe(filename, () => {
     const assertFileCount = 8
     let dirCount = 0
     let fileCount = 0
+    let linkCount = 0
     let entryCount = 0
 
     walk(path).subscribe(
@@ -33,6 +34,10 @@ describe(filename, () => {
           case EntryType.file:
             fileCount += 1
             entryCount += 1
+            break
+
+          case EntryType.link:
+            linkCount += 1
             break
 
           case EntryType.noAcessPermission:

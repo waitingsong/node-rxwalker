@@ -8,6 +8,13 @@ export type DirFilterCbRet = Filename[] | Promise<Filename[] | void> | Observabl
 export interface Options {
   maxDepth: number // if negative then infinite
   dirFilterCb: DirFilterCb
+  /**
+   * whether travel symbolicLink
+   * if true, will trigger type with symbolicLink,
+   * and then a type with file or directory later
+   * default value TRUE
+   */
+  followLink: boolean
 }
 
 export type DirFilterCb = (params: DirFilterCbParams) => DirFilterCbRet

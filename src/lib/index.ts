@@ -67,6 +67,7 @@ function _entryProxy(path: string, stats: Stats, options: Options, curDepth: num
     )
   }
 
+  // will be trigger both EntryType.link, and EntryType.file | EntryType.dir later
   if (stats.isSymbolicLink()) {
     const ret: WalkEvent = {
       ...initialWalkEvent,
@@ -77,7 +78,10 @@ function _entryProxy(path: string, stats: Stats, options: Options, curDepth: num
 
     return merge(
       of(ret),
-      curDepth < options.maxDepth ? walkLink({ path, options, curDepth: curDepth + 1 }) : empty(),
+      (options.followLink && curDepth < options.maxDepth
+        ? walkLink({ path, options, curDepth: curDepth + 1 })
+        : empty()
+      ),
     )
   }
 

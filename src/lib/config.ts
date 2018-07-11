@@ -13,6 +13,7 @@ import {
 export const initialOptions: Options = {
   maxDepth: Number.POSITIVE_INFINITY,
   dirFilterCb: initialDirFilterFn,
+  followLink: true,
 }
 
 export const initialWalkEvent: WalkEvent = {
