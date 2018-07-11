@@ -153,18 +153,8 @@ function walkDir({ path, options, curDepth }: WalkFnParams): Observable<WalkEven
 }
 
 
-
-function walkLink({ path, options, curDepth }: WalkFnParams): Observable<WalkEvent> {
-  const ret$ = ofrom(readLinkAsync(path)).pipe(
-    mergeMap(files => {
-      return ofrom(files).pipe(
-        mergeMap(file => {
-          return entryProxy(join(path, file), options, curDepth)
-        }),
-      )
-
-    }),
-
+export function walkLink({ path, options, curDepth }: WalkFnParams): Observable<WalkEvent> {
+  return ofrom(readLinkAsync(path)).pipe(
+    mergeMap(file => entryProxy(file, options, curDepth)),
   )
-  return ret$
 }
