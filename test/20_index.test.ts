@@ -1,12 +1,10 @@
-/// <reference types="mocha" />
-
 import * as assert from 'power-assert'
-
-import { walk, DirFilterCbParams, DirFilterCbRet, EntryType } from '../src/index'
 import {
   basename,
   join,
-} from '../src/shared/index'
+} from '@waiting/shared-core'
+
+import { walk, DirFilterCbParams, DirFilterCbRet, EntryType } from '../src/index'
 
 
 const filename = basename(__filename)

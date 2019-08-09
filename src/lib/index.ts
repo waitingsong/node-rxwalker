@@ -1,11 +1,10 @@
 import { lstat, readdir, readlink, Stats } from 'fs'
+import { promisify } from 'util'
 
 import {
-  empty, from as ofrom, merge, of, Observable, Observer,
+  empty, from as ofrom, merge, of, Observable, Observer, EMPTY,
 } from 'rxjs'
 import { catchError, filter, mergeMap } from 'rxjs/operators'
-
-import { promisify } from '../shared/index'
 
 import { initialOptions, initialWalkEvent } from './config'
 import {
@@ -60,6 +59,7 @@ function entryProxy(
   )
 }
 
+// eslint-disable-next-line max-params
 function _entryProxy(
   path: string,
   stats: Stats,
@@ -133,14 +133,16 @@ function procDirfilterCb(cb: DirFilterCb, ps: DirFilterCbParams): Observable<Fil
   }
   else if (filterRet instanceof Promise) {
     return ofrom(filterRet).pipe(
-      filter(files => files && Array.isArray(files) ? true : false),
-      mergeMap((files: Filename[]) => ofrom(files)),
+      mergeMap((files: void | string[]) => {
+        return files ? ofrom(files) : EMPTY
+      }),
     )
   }
 
   return empty()
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function handleError(err: any, curDepth: number): Observable<WalkEvent> {
   let entryType = EntryType.unknown
 
@@ -189,7 +191,9 @@ function walkDir({ path, options, curDepth }: WalkFnParams): Observable<WalkEven
       }
       return ofrom(files)
     }),
-    filter(file => file && typeof file === 'string' ? true : false),
+    filter((file) => {
+      return !! (file && typeof file === 'string')
+    }),
     mergeMap((file: string) => {
       return entryProxy(path + '/' + file, options, curDepth, path)
     }),

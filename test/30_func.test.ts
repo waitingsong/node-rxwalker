@@ -1,10 +1,8 @@
-/// <reference types="mocha" />
-
 import * as assert from 'power-assert'
 import { Observable } from 'rxjs'
+import { basename } from '@waiting/shared-core'
 
 import { EntryType, WalkEvent } from '../src/index'
-import { basename } from '../src/shared/index'
 
 
 import rewire = require('rewire')
