@@ -1,11 +1,14 @@
-# rxwalker
+# [rxwalker](https://waitingsong.github.io/node-rxwalker/)
+
 响应式递归读取目录及文件，通过过滤回调函数可实现更灵活的搜索控制
 
 [![Version](https://img.shields.io/npm/v/rxwalker.svg)](https://www.npmjs.com/package/rxwalker)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+![](https://img.shields.io/badge/lang-TypeScript-blue.svg)
 [![Build Status](https://travis-ci.org/waitingsong/node-rxwalker.svg?branch=master)](https://travis-ci.org/waitingsong/node-rxwalker)
 [![Build status](https://ci.appveyor.com/api/projects/status/jt1a2bo4jk6b9728/branch/master?svg=true)](https://ci.appveyor.com/project/waitingsong/node-rxwalker/branch/master)
 [![Coverage Status](https://coveralls.io/repos/github/waitingsong/node-rxwalker/badge.svg?branch=master)](https://coveralls.io/github/waitingsong/node-rxwalker?branch=master)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 
 
 ## 安装
