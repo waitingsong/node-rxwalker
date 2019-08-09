@@ -1,3 +1,7 @@
+package-lock.json
+yarn.lock
+/agent.js
+/app.js
 app/**/*.js
 test/**/*.js
 config/**/*.js
@@ -18,11 +22,16 @@ diff-dump/
 .mvn
 .factorypath
 nbproject/
+/www
+.githooks
+.tsbuildinfo
+.tsbuildinfo.*
 
 dbconfig.json
 
 !.vscode/settings.json.example
 !settings/*.example
+
 
 
 # for java
@@ -36,6 +45,13 @@ resource/webserviceConfig.xml
 src/config.properties
 .buildpath
 .tern-project
+
+
+# for gradle
+.gradle
+gradle-app.setting
+!gradle-wrapper.jar
+.gradletasknamecache
 
 
 # for oracle
@@ -54,6 +70,7 @@ nbdist/
 
 *~
 *.sw[mnpcod]
+*.log
 *.tmp
 *.tmp.*
 log.txt
@@ -62,10 +79,12 @@ log.txt
 .vscode/
 
 .idea/
+.ionic/
 .sourcemaps/
 .sass-cache/
 .tmp/
 .versions/
+www/
 dist/
 tmp/
 temp/
@@ -138,6 +157,7 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+*.un~
 
 # Runtime data
 pids

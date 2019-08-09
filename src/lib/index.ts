@@ -1,5 +1,8 @@
 import { lstat, readdir, readlink, Stats } from 'fs'
-import { empty, from as ofrom, merge, of, Observable, Observer } from 'rxjs'
+
+import {
+  empty, from as ofrom, merge, of, Observable, Observer,
+} from 'rxjs'
 import { catchError, filter, mergeMap } from 'rxjs/operators'
 
 import { promisify } from '../shared/index'
@@ -105,10 +108,10 @@ function _entryProxy(
 
     return merge(
       of(ret),
-      (options.followLink && curDepth < options.maxDepth
+      options.followLink && curDepth < options.maxDepth
         ? walkLink({ path, options, curDepth })
         : empty()
-      ),
+      ,
     )
   }
 
@@ -165,7 +168,7 @@ function handleError(err: any, curDepth: number): Observable<WalkEvent> {
 
 
 function walkDir({ path, options, curDepth }: WalkFnParams): Observable<WalkEvent> {
-  const useFilter = typeof options.dirFilterCb === 'function' ? true : false
+  const useFilter = typeof options.dirFilterCb === 'function'
   const files$ = <Observable<Filename[]>> Observable.create((obv: Observer<Filename[]>) => {
     readdir(path, (err, files) => {
       if (err) {
@@ -176,7 +179,7 @@ function walkDir({ path, options, curDepth }: WalkFnParams): Observable<WalkEven
     })
   })
   const ret$ = files$.pipe(
-    mergeMap(files => {
+    mergeMap((files) => {
       if (useFilter && options.dirFilterCb) {
         return procDirfilterCb(options.dirFilterCb, {
           parentPath: path,

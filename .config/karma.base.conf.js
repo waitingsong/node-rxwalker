@@ -9,8 +9,6 @@ module.exports = {
   files: [
     'src/**/*.ts',
     'test_browser/**/*.ts',
-    '.config/node_modules/es6-shim/es6-shim.min.js',
-    '.config/node_modules/whatwg-fetch/fetch.js',
   ],
 
   exclude: [
@@ -25,7 +23,7 @@ module.exports = {
 
   client: {
     mocha: {
-      timeout : 20 * 1000,
+      timeout : 60 * 1000,
     }
   },
 
@@ -43,7 +41,7 @@ module.exports = {
       moduleResolution: 'node',
       noUnusedLocals: false,
       strict: true,
-      target: 'es5',
+      target: 'es6',
     },
     include: [
       'src/**/*.ts',

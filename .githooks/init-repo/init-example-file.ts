@@ -1,19 +1,17 @@
 /**
  * 搜索指定目录以 file.example 文件为基础生成不带后缀的文件为不带 .example 后缀的文件
  */
+import { copyFileAsync, isPathAccessible, join, readDirAsync } from './init-utils'
 
-import { copyFileAsync, isPathAcessible, join, readDirAsync } from '../src/shared/index'
 
-import folderArr from './init.config'
+// const rootDir = join(__dirname, '..')
+export async function genFileFromExample(rootDir: string, list: string[]): Promise<string[]> {
+  const copied = <string[]> []
 
-const rootDir = join(__dirname, '..')
-const copyed = <string[]> []
-
-async function genExampleFiles(list: string[]) {
   for (const dir of list) {
     const path = join(rootDir, dir.replace(/\.{2,}/, '/'))
 
-    if (! await isPathAcessible(path)) {
+    if (! await isPathAccessible(path)) {
       continue
     }
     const files = await readDirAsync(path)
@@ -26,12 +24,14 @@ async function genExampleFiles(list: string[]) {
       const stripped = stripExampleSuffix(file)
       const target = join(path, stripped)
 
-      if (! await isPathAcessible(target)) {
+      if (! await isPathAccessible(target)) {
         await copyFileAsync(source, target)
-        copyed.push(`${dir}/${stripped}`)
+        copied.push(`${dir}/${stripped}`)
       }
     }
   }
+
+  return copied
 }
 
 function hasExampleSuffix(name: string): boolean {
@@ -59,9 +59,3 @@ function stripExampleSuffix(name: string): string {
   }
   return name
 }
-
-genExampleFiles(folderArr)
-  .then(() => {
-    console.info('生成文件：', copyed)
-  })
-  .catch(console.error)

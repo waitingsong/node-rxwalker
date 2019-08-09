@@ -1,5 +1,7 @@
 import { Stats } from 'fs'
+
 import { Observable } from 'rxjs'
+
 
 export type Filename = string
 export type Filepath = string
@@ -51,5 +53,5 @@ export const enum EntryType {
 export interface WalkFnParams {
   curDepth: number
   options: Options
-  path: Filepath  // dir
+  path: Filepath // dir
 }

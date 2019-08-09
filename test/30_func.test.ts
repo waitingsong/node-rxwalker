@@ -1,13 +1,13 @@
 /// <reference types="mocha" />
 
 import * as assert from 'power-assert'
-import rewire = require('rewire')
 import { Observable } from 'rxjs'
 
 import { EntryType, WalkEvent } from '../src/index'
-import {
-  basename,
-} from '../src/shared/index'
+import { basename } from '../src/shared/index'
+
+
+import rewire = require('rewire')
 
 const filename = basename(__filename)
 const mods = rewire('../src/lib/index')
@@ -15,7 +15,7 @@ const mods = rewire('../src/lib/index')
 
 describe(filename, () => {
 
-  it('Should handleError() works with EPERM', resolve => {
+  it('Should handleError() works with EPERM', (resolve) => {
     const fnName = 'handleError'
     const fn = <(err: NodeJS.ErrnoException) => Observable<WalkEvent>> mods.__get__(fnName)
 
@@ -28,7 +28,7 @@ describe(filename, () => {
     err.path = Math.random() + ''
 
     fn(err).subscribe(
-      data => {
+      (data) => {
         assert(data.type === EntryType.noAcessPermission)
         assert(data.path === err.path)
         resolve()
@@ -36,7 +36,7 @@ describe(filename, () => {
     )
   })
 
-  it('Should handleError() works with ENOENT', resolve => {
+  it('Should handleError() works with ENOENT', (resolve) => {
     const fnName = 'handleError'
     const fn = <(err: NodeJS.ErrnoException) => Observable<WalkEvent>> mods.__get__(fnName)
 
@@ -49,7 +49,7 @@ describe(filename, () => {
     err.path = Math.random() + ''
 
     fn(err).subscribe(
-      data => {
+      (data) => {
         assert(data.type === EntryType.notExist)
         assert(data.path === err.path)
         resolve()
@@ -57,7 +57,7 @@ describe(filename, () => {
     )
   })
 
-  it('Should handleError() works with unknown', resolve => {
+  it('Should handleError() works with unknown', (resolve) => {
     const fnName = 'handleError'
     const fn = <(err: NodeJS.ErrnoException) => Observable<WalkEvent>> mods.__get__(fnName)
 
@@ -70,7 +70,7 @@ describe(filename, () => {
     err.path = Math.random() + ''
 
     fn(err).subscribe(
-      data => {
+      (data) => {
         assert(data.type === EntryType.unknown)
         assert(data.path === err.path)
         resolve()
@@ -78,7 +78,7 @@ describe(filename, () => {
     )
   })
 
-  it('Should handleError() works with unknown error.code', resolve => {
+  it('Should handleError() works with unknown error.code', (resolve) => {
     const fnName = 'handleError'
     const fn = <(err: NodeJS.ErrnoException) => Observable<WalkEvent>> mods.__get__(fnName)
 
@@ -91,7 +91,7 @@ describe(filename, () => {
     err.path = Math.random() + ''
 
     fn(err).subscribe(
-      data => {
+      (data) => {
         assert(data.type === EntryType.unknown)
         assert(data.path === err.path)
         resolve()

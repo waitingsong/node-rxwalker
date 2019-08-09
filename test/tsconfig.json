@@ -1,33 +1,18 @@
 {
+  "extends": "../tsconfig.json",
   "compilerOptions": {
-    "alwaysStrict": true,
-    "charset": "utf8",
-    "declaration": false, 
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "importHelpers": false,
-    "inlineSourceMap": false,
+    "declaration": false,
     "module": "commonjs",
-    "moduleResolution": "node",
-    "newLine": "lf",
-    "noFallthroughCasesInSwitch": true,
-    "pretty": true,
-    "skipLibCheck": true,
-    "sourceMap": false,
-    "strict": true, 
     "noImplicitAny": false,
     "noImplicitThis": false,
     "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "target": "ES2017"
+    "target": "ESNEXT"
   },
   "include": [
     "**/*.ts"
   ],
   "exclude": [
     "asset/",
-    "dist/",
-    "test/",
     "node_modules*",
     "**/*.d.ts",
     "**/*.spec.ts"

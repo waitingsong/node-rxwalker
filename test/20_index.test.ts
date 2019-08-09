@@ -8,13 +8,14 @@ import {
   join,
 } from '../src/shared/index'
 
+
 const filename = basename(__filename)
 const testRootDir = __dirname
 
 
 describe(filename, () => {
 
-  it('Should walk() works', resolve => {
+  it('Should walk() works', (resolve) => {
     const path = join(testRootDir, 'test_dirs')
     const assertDirCount = 7
     const assertFileCount = 8
@@ -24,7 +25,7 @@ describe(filename, () => {
     let entryCount = 0
 
     walk(path).subscribe(
-      data => {
+      (data) => {
         switch (data.type) {
           case EntryType.dir:
             dirCount += 1
@@ -45,18 +46,20 @@ describe(filename, () => {
             break
         }
       },
-      err => {
+      (err) => {
         assert(false, err)
         resolve()
       },
       () => {
-        assertCount({ path, dirCount, fileCount, entryCount, assertDirCount, assertFileCount })
+        assertCount({
+          path, dirCount, fileCount, entryCount, assertDirCount, assertFileCount,
+        })
         resolve()
       },
     )
   })
 
-  it('Should walk() works', resolve => {
+  it('Should walk() works', (resolve) => {
     const path = join(testRootDir, 'test_dirs/dir-level1-a')
     const assertDirCount = 2
     const assertFileCount = 2
@@ -65,7 +68,7 @@ describe(filename, () => {
     let entryCount = 0
 
     walk(path).subscribe(
-      data => {
+      (data) => {
         switch (data.type) {
           case EntryType.dir:
             dirCount += 1
@@ -82,18 +85,20 @@ describe(filename, () => {
             break
         }
       },
-      err => {
+      (err) => {
         assert(false, err)
         resolve()
       },
       () => {
-        assertCount({ path, dirCount, fileCount, entryCount, assertDirCount, assertFileCount })
+        assertCount({
+          path, dirCount, fileCount, entryCount, assertDirCount, assertFileCount,
+        })
         resolve()
       },
     )
   })
 
-  it('Should walk() works with path not existing', resolve => {
+  it('Should walk() works with path not existing', (resolve) => {
     const path = join(testRootDir, 'test_dirsFAKE')
     const assertDirCount = 0
     const assertFileCount = 0
@@ -102,7 +107,7 @@ describe(filename, () => {
     let entryCount = 0
 
     walk(path).subscribe(
-      data => {
+      (data) => {
         switch (data.type) {
           case EntryType.dir:
             dirCount += 1
@@ -119,19 +124,21 @@ describe(filename, () => {
             break
         }
       },
-      err => {
+      (err) => {
         assert(false, err)
         resolve()
       },
       () => {
-        assertCount({ path, dirCount, fileCount, entryCount, assertDirCount, assertFileCount })
+        assertCount({
+          path, dirCount, fileCount, entryCount, assertDirCount, assertFileCount,
+        })
         resolve()
       },
     )
   })
 
 
-  it('Should walk() works with options.maxDepth == 0', resolve => {
+  it('Should walk() works with options.maxDepth == 0', (resolve) => {
     const path = join(testRootDir, 'test_dirs')
     const assertDirCount = 1
     const assertFileCount = 0
@@ -141,7 +148,7 @@ describe(filename, () => {
     const maxDepth = 0
 
     walk(path, { maxDepth }).subscribe(
-      data => {
+      (data) => {
         switch (data.type) {
           case EntryType.dir:
             dirCount += 1
@@ -158,18 +165,20 @@ describe(filename, () => {
             break
         }
       },
-      err => {
+      (err) => {
         assert(false, err)
         resolve()
       },
       () => {
-        assertCount({ path, dirCount, fileCount, entryCount, assertDirCount, assertFileCount })
+        assertCount({
+          path, dirCount, fileCount, entryCount, assertDirCount, assertFileCount,
+        })
         resolve()
       },
     )
   })
 
-  it('Should walk() works with options.maxDepth == 1', resolve => {
+  it('Should walk() works with options.maxDepth == 1', (resolve) => {
     const path = join(testRootDir, 'test_dirs')
     const assertDirCount = 4
     const assertFileCount = 2
@@ -179,7 +188,7 @@ describe(filename, () => {
     const maxDepth = 1
 
     walk(path, { maxDepth }).subscribe(
-      data => {
+      (data) => {
         switch (data.type) {
           case EntryType.dir:
             dirCount += 1
@@ -197,18 +206,20 @@ describe(filename, () => {
         }
 
       },
-      err => {
+      (err) => {
         assert(false, err)
         resolve()
       },
       () => {
-        assertCount({ path, dirCount, fileCount, entryCount, assertDirCount, assertFileCount })
+        assertCount({
+          path, dirCount, fileCount, entryCount, assertDirCount, assertFileCount,
+        })
         resolve()
       },
     )
   })
 
-  it('Should walk() works with DirFilterCb returining Array', resolve => {
+  it('Should walk() works with DirFilterCb returining Array', (resolve) => {
     const path = join(testRootDir, 'test_dirs')
     const assertDirCount = 7
     const assertFileCount = 8
@@ -221,7 +232,7 @@ describe(filename, () => {
     }
 
     walk(path, { dirFilterCb }).subscribe(
-      data => {
+      (data) => {
         switch (data.type) {
           case EntryType.dir:
             dirCount += 1
@@ -238,18 +249,20 @@ describe(filename, () => {
             break
         }
       },
-      err => {
+      (err) => {
         assert(false, err)
         resolve()
       },
       () => {
-        assertCount({ path, dirCount, fileCount, entryCount, assertDirCount, assertFileCount })
+        assertCount({
+          path, dirCount, fileCount, entryCount, assertDirCount, assertFileCount,
+        })
         resolve()
       },
     )
   })
 
-  it('Should walk() works with DirFilterCb returining Array filtered by name', resolve => {
+  it('Should walk() works with DirFilterCb returining Array filtered by name', (resolve) => {
     const path = join(testRootDir, 'test_dirs')
     // test_dirs, test_dirs/dir-level1-a, test_dirs/dir-level1-a/dir-level2-a
     const assertDirCount = 3
@@ -260,13 +273,13 @@ describe(filename, () => {
     let entryCount = 0
 
     const dirFilterCb = ({ files }: DirFilterCbParams): DirFilterCbRet => {
-      return files.filter(file => {
+      return files.filter((file) => {
         return file.includes('a') ? true : false
       })
     }
 
     walk(path, { dirFilterCb }).subscribe(
-      data => {
+      (data) => {
         switch (data.type) {
           case EntryType.dir:
             dirCount += 1
@@ -283,19 +296,21 @@ describe(filename, () => {
             break
         }
       },
-      err => {
+      (err) => {
         assert(false, err)
         resolve()
       },
       () => {
-        assertCount({ path, dirCount, fileCount, entryCount, assertDirCount, assertFileCount })
+        assertCount({
+          path, dirCount, fileCount, entryCount, assertDirCount, assertFileCount,
+        })
         resolve()
       },
     )
   })
 
 
-  it('Should walk() works with DirFilterCb returining Array filtered by parentPath', resolve => {
+  it('Should walk() works with DirFilterCb returining Array filtered by parentPath', (resolve) => {
     const path = join(testRootDir, 'test_dirs')
     // test_dirs, test_dirs/dir-level1-a, test_dirs/dir-level1-b, test_dirs/dir-level1-z,
     // dir-level1-a/dir-level2-a
@@ -319,7 +334,7 @@ describe(filename, () => {
     }
 
     walk(path, { dirFilterCb }).subscribe(
-      data => {
+      (data) => {
         switch (data.type) {
           case EntryType.dir:
             dirCount += 1
@@ -336,34 +351,36 @@ describe(filename, () => {
             break
         }
       },
-      err => {
+      (err) => {
         assert(false, err)
         resolve()
       },
       () => {
-        assertCount({ path, dirCount, fileCount, entryCount, assertDirCount, assertFileCount })
+        assertCount({
+          path, dirCount, fileCount, entryCount, assertDirCount, assertFileCount,
+        })
         resolve()
       },
     )
   })
 
 
-  it('Should walk() works with DirFilterCb returining Array filtered by name and maxDepth', resolve => {
+  it('Should walk() works with DirFilterCb returining Array filtered by name and maxDepth', (resolve) => {
     const path = join(testRootDir, 'test_dirs')
-    const assertDirCount = 2  // test_dirs, test_dirs/dir-level1-a
+    const assertDirCount = 2 // test_dirs, test_dirs/dir-level1-a
     const assertFileCount = 1 // test_dirs/level1-a.txt
     let dirCount = 0
     let fileCount = 0
     let entryCount = 0
 
     const dirFilterCb = ({ files, curDepth }: DirFilterCbParams): DirFilterCbRet => {
-      return files.filter(file => {
+      return files.filter((file) => {
         return file.includes('a') && curDepth < 2 ? true : false
       })
     }
 
     walk(path, { dirFilterCb }).subscribe(
-      data => {
+      (data) => {
         switch (data.type) {
           case EntryType.dir:
             dirCount += 1
@@ -380,12 +397,14 @@ describe(filename, () => {
             break
         }
       },
-      err => {
+      (err) => {
         assert(false, err)
         resolve()
       },
       () => {
-        assertCount({ path, dirCount, fileCount, entryCount, assertDirCount, assertFileCount })
+        assertCount({
+          path, dirCount, fileCount, entryCount, assertDirCount, assertFileCount,
+        })
         resolve()
       },
     )
@@ -404,7 +423,8 @@ interface AssertCountParams {
 }
 
 function assertCount({
-  path, dirCount, fileCount, entryCount, assertDirCount, assertFileCount }: AssertCountParams): void {
+  path, dirCount, fileCount, entryCount, assertDirCount, assertFileCount,
+}: AssertCountParams): void {
 
   console.info(`path: "${path}": dirCount: ${dirCount}, fileCount: ${fileCount}, entryCount: ${entryCount}\n`)
   assert(dirCount === assertDirCount, 'dirs not equivalent')
