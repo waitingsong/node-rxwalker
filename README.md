@@ -16,7 +16,7 @@ npm install --save rxwalker
 ## Usage
 ```js
 // js
-const walk = require('rxwalker').default
+const walk = require('rxwalker').walk
 
 walk('<path>').subscribe(
   data => console.info(data),
@@ -25,7 +25,7 @@ walk('<path>').subscribe(
 
 ```ts
 // es6 or typescript
-import walk from 'rxwalker'
+import { walk } from 'rxwalker'
 
 walk('<path>').subscribe(
   data => console.info(data),
@@ -33,7 +33,6 @@ walk('<path>').subscribe(
 ```
 
 ```ts
-// typescript
 import { walk, EntryType } from 'rxwalker'
 
 const maxDepth = 7 // <--- walk with maxDepth
@@ -86,7 +85,6 @@ walk('<path>', { maxDepth }).subscribe(
 
 
 ```ts
-// typescript
 import { walk, DirFilterCbParams, DirFilterCbRet, EntryType } from 'rxwalker'
 
 let dirCount = 0
@@ -144,9 +142,8 @@ walk('<path>', { dirFilterCb }).subscribe(
 ```
 
 ```ts
-// es6 or typescript
 // stop running walker conditionally
-import walk from 'rxwalker'
+import { walk } from 'rxwalker'
 
 const sub = walk('<path>').subscribe(
   data => {
@@ -162,9 +159,8 @@ const sub = walk('<path>').subscribe(
 ```
 
 ```ts
-// es6 or typescript
-// 不解析符号链接
-import walk from 'rxwalker'
+// no follow symbol link
+import { walk } from 'rxwalker'
 
 walk('<path>', { followLink: false }).subscribe(
   data => console.log(data),
