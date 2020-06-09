@@ -1,8 +1,8 @@
-import * as assert from 'power-assert'
 import {
   basename,
   join,
 } from '@waiting/shared-core'
+import * as assert from 'power-assert'
 
 import { walk, DirFilterCbParams, DirFilterCbRet, EntryType } from '../src/index'
 

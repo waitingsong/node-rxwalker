@@ -1,11 +1,11 @@
-import * as assert from 'power-assert'
-import { Observable } from 'rxjs'
 import { basename } from '@waiting/shared-core'
+import * as assert from 'power-assert'
+import rewire = require('rewire')
+import { Observable } from 'rxjs'
 
 import { EntryType, WalkEvent } from '../src/index'
 
 
-import rewire = require('rewire')
 
 const filename = basename(__filename)
 const mods = rewire('../src/lib/index')
@@ -15,7 +15,7 @@ describe(filename, () => {
 
   it('Should handleError() works with EPERM', (resolve) => {
     const fnName = 'handleError'
-    const fn = <(err: NodeJS.ErrnoException) => Observable<WalkEvent>> mods.__get__(fnName)
+    const fn = mods.__get__(fnName)
 
     if (typeof fn !== 'function') {
       return assert(false, `${fnName} is not a function`)
@@ -36,7 +36,7 @@ describe(filename, () => {
 
   it('Should handleError() works with ENOENT', (resolve) => {
     const fnName = 'handleError'
-    const fn = <(err: NodeJS.ErrnoException) => Observable<WalkEvent>> mods.__get__(fnName)
+    const fn = mods.__get__(fnName)
 
     if (typeof fn !== 'function') {
       return assert(false, `${fnName} is not a function`)
@@ -57,7 +57,7 @@ describe(filename, () => {
 
   it('Should handleError() works with unknown', (resolve) => {
     const fnName = 'handleError'
-    const fn = <(err: NodeJS.ErrnoException) => Observable<WalkEvent>> mods.__get__(fnName)
+    const fn = mods.__get__(fnName)
 
     if (typeof fn !== 'function') {
       return assert(false, `${fnName} is not a function`)
@@ -78,7 +78,7 @@ describe(filename, () => {
 
   it('Should handleError() works with unknown error.code', (resolve) => {
     const fnName = 'handleError'
-    const fn = <(err: NodeJS.ErrnoException) => Observable<WalkEvent>> mods.__get__(fnName)
+    const fn = mods.__get__(fnName)
 
     if (typeof fn !== 'function') {
       return assert(false, `${fnName} is not a function`)
