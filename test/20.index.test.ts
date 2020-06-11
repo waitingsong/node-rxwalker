@@ -322,7 +322,7 @@ describe(filename, () => {
 
     const dirFilterCb = ({ parentPath, files, curDepth }: DirFilterCbParams): DirFilterCbRet => {
       if (curDepth > 1) {
-        if (parentPath.replace(/\\/g, '/').match(/test_dirs\/[\w\d/-]+?a/)) {
+        if (/test_dirs\/[\w\d/-]+?a/u.exec(parentPath.replace(/\\/g, '/'))) {
           return files
         }
       }

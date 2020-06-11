@@ -1,10 +1,10 @@
+/* eslint-disable import/newline-after-import */
 import { basename } from '@waiting/shared-core'
 import * as assert from 'power-assert'
 import rewire = require('rewire')
 import { Observable } from 'rxjs'
 
 import { EntryType, WalkEvent } from '../src/index'
-
 
 
 const filename = basename(__filename)
@@ -23,7 +23,7 @@ describe(filename, () => {
     const err: NodeJS.ErrnoException = new Error()
 
     err.code = EntryType.noAcessPermission
-    err.path = Math.random() + ''
+    err.path = Math.random().toString()
 
     fn(err).subscribe(
       (data) => {
@@ -44,7 +44,7 @@ describe(filename, () => {
     const err: NodeJS.ErrnoException = new Error()
 
     err.code = EntryType.notExist
-    err.path = Math.random() + ''
+    err.path = Math.random().toString()
 
     fn(err).subscribe(
       (data) => {
@@ -65,7 +65,7 @@ describe(filename, () => {
     const err: NodeJS.ErrnoException = new Error()
 
     err.code = EntryType.unknown
-    err.path = Math.random() + ''
+    err.path = Math.random().toString()
 
     fn(err).subscribe(
       (data) => {
@@ -86,7 +86,7 @@ describe(filename, () => {
     const err: NodeJS.ErrnoException = new Error()
 
     err.code = 'whaterror'
-    err.path = Math.random() + ''
+    err.path = Math.random().toString()
 
     fn(err).subscribe(
       (data) => {

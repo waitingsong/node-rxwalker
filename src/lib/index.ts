@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/prefer-optional-chain */
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { lstat, readdir, readlink, Stats } from 'fs'
 import { promisify } from 'util'
 
@@ -43,7 +47,7 @@ function entryProxy(
   parentPath: Filepath,
 ): Observable<WalkEvent> {
 
-  const stats$ = <Observable<Stats>> Observable.create((obv: Observer<Stats>) => {
+  const stats$ = Observable.create((obv: Observer<Stats>) => {
     lstat(path, (err, stats) => {
       if (err) {
         return obv.error(err)
@@ -51,11 +55,11 @@ function entryProxy(
       obv.next(stats)
       obv.complete()
     })
-  })
+  }) as Observable<Stats>
 
   return stats$.pipe(
     mergeMap((stats: Stats) => _entryProxy(path, stats, options, curDepth, parentPath)),
-    catchError(err => handleError(err, curDepth)),
+    catchError((err: Error | NodeJS.ErrnoException) => handleError(err, curDepth)),
   )
 }
 
@@ -69,7 +73,7 @@ function _entryProxy(
 ): Observable<WalkEvent> {
 
   if (stats.isFile()) {
-    return of(<WalkEvent> {
+    return of<WalkEvent>({
       ...initialWalkEvent,
       depth: curDepth,
       type: EntryType.file,
@@ -143,10 +147,10 @@ function procDirfilterCb(cb: DirFilterCb, ps: DirFilterCbParams): Observable<Fil
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function handleError(err: any, curDepth: number): Observable<WalkEvent> {
+function handleError(err: NodeJS.ErrnoException, curDepth: number): Observable<WalkEvent> {
   let entryType = EntryType.unknown
 
-  if (err.code) {
+  if (err && err.code) {
     switch (err.code) {
       case EntryType.notExist:
         entryType = EntryType.notExist
@@ -158,10 +162,10 @@ function handleError(err: any, curDepth: number): Observable<WalkEvent> {
     }
   }
 
-  return of(<WalkEvent> {
+  return of<WalkEvent>({
     ...initialWalkEvent,
     type: entryType,
-    path: err.path,
+    path: err && err.path ? err.path : '',
     parentPath: '',
     depth: curDepth,
     error: err,
@@ -171,7 +175,7 @@ function handleError(err: any, curDepth: number): Observable<WalkEvent> {
 
 function walkDir({ path, options, curDepth }: WalkFnParams): Observable<WalkEvent> {
   const useFilter = typeof options.dirFilterCb === 'function'
-  const files$ = <Observable<Filename[]>> Observable.create((obv: Observer<Filename[]>) => {
+  const files$ = Observable.create((obv: Observer<Filename[]>) => {
     readdir(path, (err, files) => {
       if (err) {
         return obv.error(err)
@@ -179,7 +183,8 @@ function walkDir({ path, options, curDepth }: WalkFnParams): Observable<WalkEven
       obv.next(files)
       obv.complete()
     })
-  })
+  }) as Observable<Filename[]>
+
   const ret$ = files$.pipe(
     mergeMap((files) => {
       if (useFilter && options.dirFilterCb) {
@@ -208,3 +213,4 @@ function walkLink({ path, options, curDepth }: WalkFnParams): Observable<WalkEve
     mergeMap(file => entryProxy(file, options, curDepth, path)),
   )
 }
+
