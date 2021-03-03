@@ -24,7 +24,7 @@
   "homepage": "https://github.com/waitingsong/node-rxwalker#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/waitingsong/npm-base.git"
+    "url": "git+https://github.com/waitingsong/node-rxwalker.git"
   },
   "license": "MIT",
   "dependencies": {
@@ -45,7 +45,7 @@
     "@waiting/shared-core": "6",
     "coveralls": "3",
     "cross-env": "7",
-    "eslint": "^7.20.0",
+    "eslint": "7",
     "espower-typescript": "10",
     "intelli-espower-loader": "1",
     "mocha": "8",
