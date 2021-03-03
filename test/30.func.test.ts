@@ -1,10 +1,12 @@
 /* eslint-disable import/newline-after-import */
 import { basename } from '@waiting/shared-core'
-import * as assert from 'power-assert'
 import rewire = require('rewire')
 import { Observable } from 'rxjs'
 
 import { EntryType, WalkEvent } from '../src/index'
+
+// eslint-disable-next-line import/order
+import assert = require('power-assert')
 
 
 const filename = basename(__filename)
