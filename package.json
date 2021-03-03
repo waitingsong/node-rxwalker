@@ -45,7 +45,7 @@
     "@waiting/shared-core": "6",
     "coveralls": "3",
     "cross-env": "7",
-    "eslint": "~7.18.0",
+    "eslint": "^7.20.0",
     "espower-typescript": "10",
     "intelli-espower-loader": "1",
     "mocha": "8",
