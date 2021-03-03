@@ -19,6 +19,7 @@ run/
 target/
 Thumbs.db
 
+.kmore.ts
 *.__built-tables.ts
 *.__built-dict.ts
 *.bak
@@ -33,6 +34,10 @@ Thumbs.db
 /packages/*/*.js
 /packages/*/config/
 /packages/*/lib/
+test/app/**/*.js
+test/fixtures/**/*.js
+**/test/fixtures/**/*.js
+.mwcc-cache
 
 
 # for java
