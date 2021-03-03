@@ -7,6 +7,7 @@ A reactive nodejs directory walker. More flexible control via filename and recur
 [![](https://img.shields.io/badge/lang-TypeScript-blue.svg)]()
 [![ci](https://github.com/waitingsong/node-rxwalker/workflows/ci/badge.svg)](https://github.com/waitingsong/node-rxwalker/actions?query=workflow%3A%22ci%22)
 [![Build status](https://ci.appveyor.com/api/projects/status/jt1a2bo4jk6b9728/branch/master?svg=true)](https://ci.appveyor.com/project/waitingsong/node-rxwalker/branch/master)
+[![codecov](https://codecov.io/gh/waitingsong/node-rxwalker/branch/master/graph/badge.svg?token=SjZLx1qd9O)](https://codecov.io/gh/waitingsong/node-rxwalker)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 
 
