@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 4.0.0 (2021-05-10)
+
 ## 3.1.0 (2021-03-03)
 
 ### [3.0.1](https://github.com/waitingsong/npm-base/compare/v3.0.0...v3.0.1) (2020-06-11)
