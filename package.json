@@ -17,7 +17,7 @@
   "es2015": "./dist/rxwalker.esm.js",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "types": "./src/index.ts",
   "bugs": {
     "url": "https://github.com/waitingsong/node-rxwalker/issues"
   },
@@ -42,7 +42,7 @@
     "@types/rimraf": "3",
     "@types/yargs": "16",
     "@waiting/eslint-config": "6",
-    "@waiting/shared-core": "6",
+    "@waiting/shared-core": "7",
     "coveralls": "3",
     "cross-env": "7",
     "eslint": "7",
@@ -50,11 +50,9 @@
     "intelli-espower-loader": "1",
     "mocha": "8",
     "mocha-lcov-reporter": "1",
-    "nyc": "15",
     "power-assert": "1",
     "rewire": "5",
     "rimraf": "3",
-    "rollup": "2",
     "rollup-plugin-terser": "7",
     "rxrunscript": "5",
     "ts-node": "9",
@@ -65,13 +63,14 @@
     "node": ">=12.13.0"
   },
   "files": [
+    "src/**/*.ts",
     "dist"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
-    "bp:add": "git remote add bp https://github.com/waitingsong/npm-base",
+    "bp:add": "git remote add bp https://github.com.cnpmjs.org/waitingsong/npm-base",
     "bp:sync": "git fetch --all -v && git merge bp/master -m \"Merge remote-tracking branch 'bp/master'\"",
     "build": "npm run lint && npm run tsc && npm run rp",
     "devbuild": "npm run clean && npm run tsc:dev && npm run rp",
