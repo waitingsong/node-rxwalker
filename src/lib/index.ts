@@ -6,7 +6,7 @@ import { lstat, readdir, readlink, Stats } from 'fs'
 import { promisify } from 'util'
 
 import {
-  empty, from as ofrom, merge, of, Observable, Observer, EMPTY,
+  from as ofrom, merge, of, Observable, Observer, EMPTY,
 } from 'rxjs'
 import { catchError, filter, mergeMap } from 'rxjs/operators'
 
@@ -95,7 +95,7 @@ function _entryProxy(
 
     return merge(
       of(ret),
-      curDepth < options.maxDepth ? walkDir({ path, options, curDepth: curDepth + 1 }) : empty(),
+      curDepth < options.maxDepth ? walkDir({ path, options, curDepth: curDepth + 1 }) : EMPTY,
     )
   }
 
@@ -114,7 +114,7 @@ function _entryProxy(
       of(ret),
       options.followLink && curDepth < options.maxDepth
         ? walkLink({ path, options, curDepth })
-        : empty()
+        : EMPTY
       ,
     )
   }
@@ -127,7 +127,7 @@ function procDirfilterCb(cb: DirFilterCb, ps: DirFilterCbParams): Observable<Fil
   const filterRet = cb(ps)
 
   if (! filterRet) {
-    return empty()
+    return EMPTY
   }
   else if (filterRet instanceof Observable) {
     return filterRet
@@ -143,7 +143,7 @@ function procDirfilterCb(cb: DirFilterCb, ps: DirFilterCbParams): Observable<Fil
     )
   }
 
-  return empty()
+  return EMPTY
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
