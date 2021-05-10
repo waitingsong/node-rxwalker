@@ -44,8 +44,8 @@ jobs:
         run: |
           openssl version
           node -v
-          npm i -g nyc rollup standard-version
-          npm install
+          npm i -g nyc rollup standard-version 
+          npm i
           npm run lint:nofix
           npm run build --if-present
       - name: npm ci
