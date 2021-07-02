@@ -12,15 +12,31 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    container: node:14-buster
+    runs-on: ${{ matrix.os }}
+    container: node:14.17-buster
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
 
     strategy:
       matrix:
         node: [14]
+        os: [ubuntu-latest]
 
     steps:
+      - name: Prepare
+        run: |
+          npm -v && node -v
+          git --version
+          uname -a
+          apt-get update -qq --yes > /dev/null
+          apt-get install -qq --yes --no-install-recommends bash postgresql-client jq
+          uname -a
       - uses: actions/checkout@v2
+        with:
+          # pulls all commits (needed for lerna / semantic release to correctly version)
+          fetch-depth: "0"
+      - name: Fix for semantic release
+        # pulls all tags (needed for lerna / semantic release to correctly version)
+        run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v2
         with:
@@ -48,6 +64,8 @@ jobs:
           npm install
           npm run lint:nofix
           npm run build --if-present
+        env:
+          CI: true
       - name: npm ci
         run: |
           npm run cov

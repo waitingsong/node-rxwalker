@@ -84,7 +84,7 @@
     "purge": "npm run clean && rm node_modules -rf",
     "release": "standard-version -r",
     "release:first": "standard-version --first-release",
-    "repo:init": "sh .githooks/init-repo.sh",
+    "repo:init": "bash .githooks/init-repo.sh",
     "rp": "rollup -c rollup.config.js",
     "rp:w": "npm run tsc:w | rollup -wc rollup.config.js",
     "test": "cross-env TS_NODE_PROJECT=test/tsconfig.json mocha",
