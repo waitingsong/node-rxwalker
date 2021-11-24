@@ -28,15 +28,13 @@ jobs:
         with:
           path: |
             node_modules
-            */*/node_modules
           key: ${{ runner.OS }}-build-${{ env.cache-name }}-${{ github.ref }}-${{ hashFiles('**/lockfiles') }}
 
       - name: npm build
         run: |
           openssl version
           node -v
-          npm i -g nyc rollup
-          npm i
+          npm i nyc rollup
           npm run lint:nofix
           npm run build --if-present
         env:
