@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/prefer-optional-chain */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { lstat, readdir, readlink, Stats } from 'fs'
 import { promisify } from 'util'
 
 import {
-  from as ofrom, merge, of, Observable, Observer, EMPTY,
+  from as ofrom,
+  merge,
+  of,
+  Observable,
+  Observer, EMPTY,
 } from 'rxjs'
 import { catchError, filter, mergeMap } from 'rxjs/operators'
 
@@ -146,10 +147,10 @@ function procDirfilterCb(cb: DirFilterCb, ps: DirFilterCbParams): Observable<Fil
   return EMPTY
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function handleError(err: NodeJS.ErrnoException, curDepth: number): Observable<WalkEvent> {
   let entryType = EntryType.unknown
 
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (err && err.code) {
     switch (err.code) {
       case EntryType.notExist:
@@ -165,6 +166,7 @@ function handleError(err: NodeJS.ErrnoException, curDepth: number): Observable<W
   return of<WalkEvent>({
     ...initialWalkEvent,
     type: entryType,
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     path: err && err.path ? err.path : '',
     parentPath: '',
     depth: curDepth,
@@ -187,6 +189,7 @@ function walkDir({ path, options, curDepth }: WalkFnParams): Observable<WalkEven
 
   const ret$ = files$.pipe(
     mergeMap((files) => {
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (useFilter && options.dirFilterCb) {
         return procDirfilterCb(options.dirFilterCb, {
           parentPath: path,
