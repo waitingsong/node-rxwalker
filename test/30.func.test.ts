@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable import/newline-after-import */
-import { basename } from '@waiting/shared-core'
+import { relative } from 'path'
+
 import rewire = require('rewire')
-import { Observable } from 'rxjs'
 
 import { EntryType, WalkEvent } from '../src/index'
 
@@ -9,7 +11,7 @@ import { EntryType, WalkEvent } from '../src/index'
 import assert = require('power-assert')
 
 
-const filename = basename(__filename)
+const filename = relative(process.cwd(), __filename).replace(/\\/ug, '/')
 const mods = rewire('../src/lib/index')
 
 

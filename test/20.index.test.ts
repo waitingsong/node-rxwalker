@@ -1,7 +1,6 @@
-import {
-  basename,
-  join,
-} from '@waiting/shared-core'
+import { relative } from 'path'
+
+import { join } from '@waiting/shared-core'
 
 import { walk, DirFilterCbParams, DirFilterCbRet, EntryType } from '../src/index'
 
@@ -9,7 +8,7 @@ import { walk, DirFilterCbParams, DirFilterCbRet, EntryType } from '../src/index
 import assert = require('power-assert')
 
 
-const filename = basename(__filename)
+const filename = relative(process.cwd(), __filename).replace(/\\/ug, '/')
 const testRootDir = __dirname
 
 
@@ -47,7 +46,7 @@ describe(filename, () => {
         }
       },
       (err) => {
-        assert(false, err)
+        assert(false, (err as Error).message)
         resolve()
       },
       () => {
@@ -86,7 +85,7 @@ describe(filename, () => {
         }
       },
       (err) => {
-        assert(false, err)
+        assert(false, (err as Error).message)
         resolve()
       },
       () => {
@@ -125,7 +124,7 @@ describe(filename, () => {
         }
       },
       (err) => {
-        assert(false, err)
+        assert(false, (err as Error).message)
         resolve()
       },
       () => {
@@ -166,7 +165,7 @@ describe(filename, () => {
         }
       },
       (err) => {
-        assert(false, err)
+        assert(false, (err as Error).message)
         resolve()
       },
       () => {
@@ -207,7 +206,7 @@ describe(filename, () => {
 
       },
       (err) => {
-        assert(false, err)
+        assert(false, (err as Error).message)
         resolve()
       },
       () => {
@@ -250,7 +249,7 @@ describe(filename, () => {
         }
       },
       (err) => {
-        assert(false, err)
+        assert(false, (err as Error).message)
         resolve()
       },
       () => {
@@ -297,7 +296,7 @@ describe(filename, () => {
         }
       },
       (err) => {
-        assert(false, err)
+        assert(false, (err as Error).message)
         resolve()
       },
       () => {
@@ -352,7 +351,7 @@ describe(filename, () => {
         }
       },
       (err) => {
-        assert(false, err)
+        assert(false, (err as Error).message)
         resolve()
       },
       () => {
@@ -398,7 +397,7 @@ describe(filename, () => {
         }
       },
       (err) => {
-        assert(false, err)
+        assert(false, (err as Error).message)
         resolve()
       },
       () => {
