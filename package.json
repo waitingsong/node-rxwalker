@@ -1,7 +1,7 @@
 {
   "name": "rxwalker",
   "author": "waiting",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "A simple directory tree walker by rxjs",
   "keywords": [
     "fs",
