@@ -115,7 +115,6 @@ jobs:
         run: |
           whoami
           export cwd=`pwd`
-          ls -al package.json CHANGELOG.md
           . .scripts/ci/ci-env.sh
           git restore .
           chmod 777 package.json CHANGELOG.md
