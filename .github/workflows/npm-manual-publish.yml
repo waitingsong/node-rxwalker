@@ -17,7 +17,7 @@ jobs:
 
     strategy:
       matrix:
-        node: [16]
+        node: [18]
         os: [ubuntu-latest]
 
     steps:
@@ -25,11 +25,12 @@ jobs:
         with:
           # pulls all commits (needed for lerna / semantic release to correctly version)
           fetch-depth: "0"
+      # Caution: disable fix below at FIRST publish, then enable
       - name: Fix for semantic release
         # pulls all tags (needed for lerna / semantic release to correctly version)
         run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
       - name: Use Node.js ${{ matrix.node }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
           registry-url: 'https://registry.npmjs.org'
@@ -83,12 +84,12 @@ jobs:
           whoami
           export cwd=`pwd`
           . .scripts/ci/ci-env.sh
-          sh .scripts/ci/ci-prepare.sh
-          sh .github/workflows/fix.sh
-          npm i -g c8 rollup standard-version
-          sh .github/workflows/fix.sh
-          npm i
-          sh .github/workflows/fix.sh
+          .scripts/ci/ci-prepare.sh
+          .github/workflows/fix.sh
+          npm i -g c8 rollup standard-version zx
+          .github/workflows/fix.sh
+          npm run bootstrap
+          .github/workflows/fix.sh
           npm run build --if-present
         env:
           CI: true
@@ -97,7 +98,7 @@ jobs:
         run: |
           export cwd=`pwd`
           . .scripts/ci/ci-env.sh
-          sh .scripts/ci/ci-prepare.sh
+          .scripts/ci/ci-prepare.sh
           npm run lint:nofix
         env:
           CI: true
@@ -106,7 +107,7 @@ jobs:
         run: |
           export cwd=`pwd`
           . .scripts/ci/ci-env.sh
-          sh .scripts/ci/ci-prepare.sh
+          .scripts/ci/ci-prepare.sh
           npm run cov
         env:
           CI: true

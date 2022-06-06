@@ -1,12 +1,9 @@
-import { relative } from 'path'
+import assert from 'node:assert/strict'
 
-// eslint-disable-next-line import/order
-import assert = require('power-assert')
+import { fileShortPath } from '@waiting/shared-core'
 
 
-const filename = relative(process.cwd(), __filename).replace(/\\/ug, '/')
-
-describe(filename, () => {
+describe(fileShortPath(import.meta.url), () => {
 
   describe('should work', () => {
     it('always passed', () => {
