@@ -37,7 +37,7 @@ export interface WalkEvent {
   error?: Error
 }
 
-export const enum EntryType {
+export enum EntryType {
   unknown = 'unknown',
   notExist = 'ENOENT',
   noAcessPermission = 'EPERM',
