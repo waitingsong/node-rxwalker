@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/prefer-optional-chain */
-import { lstat, readdir, readlink, Stats } from 'fs'
-import { promisify } from 'util'
+import { lstat, readdir, readlink, Stats } from 'node:fs'
+import { promisify } from 'node:util'
 
 import {
   from as ofrom,
@@ -11,7 +11,7 @@ import {
 } from 'rxjs'
 import { catchError, filter, mergeMap } from 'rxjs/operators'
 
-import { initialOptions, initialWalkEvent } from './config'
+import { initialOptions, initialWalkEvent } from './config.js'
 import {
   DirFilterCb,
   DirFilterCbParams,
@@ -21,7 +21,7 @@ import {
   Options,
   WalkEvent,
   WalkFnParams,
-} from './model'
+} from './model.js'
 
 
 const readLinkAsync = promisify(readlink)

@@ -7,7 +7,7 @@ import {
   EntryType,
   Options,
   WalkEvent,
-} from './model'
+} from './model.js'
 
 
 export const initialOptions: Options = {

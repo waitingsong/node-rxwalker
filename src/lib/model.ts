@@ -1,4 +1,4 @@
-import { Stats } from 'fs'
+import { Stats } from 'node:fs'
 
 import { Observable } from 'rxjs'
 

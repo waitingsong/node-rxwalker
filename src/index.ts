@@ -1,4 +1,4 @@
 
-export * from './lib/model'
-export { walk } from './lib/index'
+export * from './lib/model.js'
+export { walk } from './lib/index.js'
 
