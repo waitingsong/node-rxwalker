@@ -1,21 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable import/newline-after-import */
-import { relative } from 'path'
+import assert from 'node:assert/strict'
 
-import rewire = require('rewire')
+import { fileShortPath } from '@waiting/shared-core'
+import rewire from 'rewire'
 
-import { EntryType, WalkEvent } from '../src/index'
-
-// eslint-disable-next-line import/order
-import assert = require('power-assert')
+import { EntryType } from '../src/index.js'
 
 
-const filename = relative(process.cwd(), __filename).replace(/\\/ug, '/')
 const mods = rewire('../src/lib/index')
 
-
-describe(filename, () => {
+describe(fileShortPath(import.meta.url), () => {
 
   it('Should handleError() works with EPERM', (resolve) => {
     const fnName = 'handleError'

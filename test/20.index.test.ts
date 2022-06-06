@@ -1,18 +1,18 @@
-import { relative } from 'path'
+import assert from 'node:assert/strict'
 
-import { join } from '@waiting/shared-core'
+import { join, fileShortPath, genCurrentDirname } from '@waiting/shared-core'
 
-import { walk, DirFilterCbParams, DirFilterCbRet, EntryType } from '../src/index'
-
-// eslint-disable-next-line import/order
-import assert = require('power-assert')
-
-
-const filename = relative(process.cwd(), __filename).replace(/\\/ug, '/')
-const testRootDir = __dirname
+import {
+  walk,
+  DirFilterCbParams,
+  DirFilterCbRet,
+  EntryType,
+} from '../src/index.js'
 
 
-describe(filename, () => {
+const testRootDir = genCurrentDirname(import.meta.url)
+
+describe(fileShortPath(import.meta.url), () => {
 
   it('Should walk() works', (resolve) => {
     const path = join(testRootDir, 'test_dirs')
