@@ -104,7 +104,7 @@
     "lint:nofix": "eslint --cache {src,test}/**/*.ts",
     "pretest": "npm run build",
     "rp": "tsx bin-hashbang.js",
-    "test": "cross-env NODE_ENV=test TS_NODE_PROJECT=test/tsconfig.json mocha --jobs=4",
+    "test": "cross-env NODE_ENV=test TS_NODE_PROJECT=test/tsconfig.json mocha  --parallel=false",
     "tsc": "tsc -b"
   }
 }
