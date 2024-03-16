@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [7.0.1](https://github.com/waitingsong/node-rxwalker/compare/v7.0.0...v7.0.1) (2024-03-16)
+
 ## [7.0.0](https://github.com/waitingsong/node-rxwalker/compare/v6.0.0...v7.0.0) (2023-09-19)
 
 ## [6.0.0](https://github.com/waitingsong/node-rxwalker/compare/v5.0.2...v6.0.0) (2022-06-06)
