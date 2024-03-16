@@ -134,14 +134,21 @@ export function handleError(err: NodeJS.ErrnoException, curDepth: number): Obser
   let entryType = EntryType.unknown
 
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  if (err && err.code) {
-    switch (err.code) {
+  const code = (err && err.code ? err.code : void 0) as EntryType || undefined
+
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (code) {
+    switch (code) {
       case EntryType.notExist:
         entryType = EntryType.notExist
         break
 
       case EntryType.noAcessPermission:
         entryType = EntryType.noAcessPermission
+        break
+
+      default:
+        void 0
         break
     }
   }
